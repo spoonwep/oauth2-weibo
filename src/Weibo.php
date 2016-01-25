@@ -13,6 +13,10 @@ class Weibo extends AbstractProvider
 	use BearerAuthorizationTrait;
 
 	/**
+	 * @var
+	 */
+	public $uid;
+	/**
 	 * @var string
 	 */
 	public $domain = "https://api.weibo.com";
@@ -38,13 +42,32 @@ class Weibo extends AbstractProvider
 	}
 
 	/**
+	 * get user's uid
+	 * @return string
+	 */
+	protected function getUidUrl (AccessToken $token)
+	{
+		return $this->domain.'/2/account/get_uid.json?access_token='.$token;
+	}
+
+	public function fetchUid (AccessToken $token)
+	{
+		$url     = $this->getUidUrl($token);
+		$request = $this->getAuthenticatedRequest(self::METHOD_GET, $url, $token);
+		$data    = $this->getResponse($request);
+		return $data;
+	}
+
+	/**
 	 * Get provider url to fetch user details
 	 * @param AccessToken $token
 	 * @return string
 	 */
 	public function getResourceOwnerDetailsUrl (AccessToken $token)
 	{
-		return $this->domain.'/2/users/show.json?source='.$this->clientId.'&access_token='.$token.'&uid='.$token;
+		$uid          = $this->fetchUid($token);
+		$this->uid    = $uid['uid'];
+		return $this->domain.'/2/users/show.json?source='.$this->clientId.'&access_token='.$token.'&uid='.$this->uid;
 	}
 
 	/**
