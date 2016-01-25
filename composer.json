@@ -1,0 +1,29 @@
+{
+    "name": "spoonwep/oauth2-weibo",
+    "description": "Weibo OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "spoonwep",
+            "email": "i@sell.moe",
+            "homepage": "http://sell.moe"
+        }
+    ],
+    "keywords": [
+      "oauth",
+      "oauth2",
+      "client",
+      "authorization",
+      "authorisation",
+      "weibo"
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "league/oauth2-client": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "spoonwep\\OAuth2\\Client\\": "src/"
+        }
+    }
+}
