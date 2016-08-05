@@ -8,7 +8,7 @@ composer require spoonwep/oauth2-weibo
 or require in a composer.json
 ```json
 "require": {
-	"spoonwep/oauth2-weibo": "~1.1"
+	"spoonwep/oauth2-weibo": "^1.2"
 }
 ```
 then run:
