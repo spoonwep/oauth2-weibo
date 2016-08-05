@@ -6,7 +6,7 @@ use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use spoonwep\OAuth2\Client\weiboResourceOwner;
+use spoonwep\OAuth2\Client\WeiboResourceOwner;
 
 class Weibo extends AbstractProvider
 {
