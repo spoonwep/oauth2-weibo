@@ -54,11 +54,35 @@ class Weibo extends AbstractProvider
 	{
 		$url     = $this->getUidUrl($token);
 		$request = $this->getAuthenticatedRequest(self::METHOD_GET, $url, $token);
-		$data    = $this->getResponse($request);
-		return $data;
+        return $this->getSpecificResponse($request);
 	}
 
-	/**
+    /**
+     * @param RequestInterface $request
+     * @return mixed
+     * @throws IdentityProviderException
+     */
+    protected function getSpecificResponse (RequestInterface $request)
+    {
+        $response = $this->getResponse($request);
+        $parsed   = $this->parseSpecificResponse($response);
+
+        $this->checkResponse($response, $parsed);
+
+        return $parsed;
+    }
+
+    /**
+     * A specific parseResponse function
+     * @param ResponseInterface $response
+     * @return mixed
+     */
+    protected function parseSpecificResponse (ResponseInterface $response)
+    {
+        return (string)$response->getBody();
+    }
+
+    /**
 	 * Get provider url to fetch user details
 	 * @param AccessToken $token
 	 * @return string
