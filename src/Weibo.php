@@ -79,7 +79,10 @@ class Weibo extends AbstractProvider
      */
     protected function parseSpecificResponse (ResponseInterface $response)
     {
-        return (string)$response->getBody();
+        $content = (string)$response->getBody();
+        parse_str($content, $parsed);
+
+        return $parsed;
     }
 
     /**
@@ -89,8 +92,8 @@ class Weibo extends AbstractProvider
 	 */
 	public function getResourceOwnerDetailsUrl (AccessToken $token)
 	{
-		$uid          = $this->fetchUid($token);
-		$this->uid    = $uid['uid'];
+        $uid          = json_decode(array_keys($this->fetchUid($token))[0], true);
+        $this->uid    = $uid['uid'];
 		return $this->domain.'/2/users/show.json?source='.$this->clientId.'&access_token='.$token.'&uid='.$this->uid;
 	}
 
